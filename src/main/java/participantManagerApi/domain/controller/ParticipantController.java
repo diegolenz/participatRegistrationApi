@@ -19,7 +19,7 @@ public class ParticipantController {
     @Autowired
     private ParticipantService participantService;
 
-    @GetMapping
+    @GetMapping("/find")
     private ResponseEntity<List<ParticipantResponse>> findAll() {
         List<ParticipantResponse> participants = this.participantService.find();
 
@@ -30,8 +30,8 @@ public class ParticipantController {
         return ResponseEntity.ok(participants);
     }
 
-    @GetMapping("/{code}")
-    private ResponseEntity<Participant> findByCode(@PathVariable("code") Long code) {
+    @GetMapping("/find-by-id")
+    private ResponseEntity<Participant> findByCode(@RequestParam(name = "code") Long code) {
         Optional<Participant> participant = this.participantService.findByCode(code);
 
         if (participant.isEmpty())
@@ -40,14 +40,14 @@ public class ParticipantController {
         return ResponseEntity.ok(participant.get());
     }
 
-    @PostMapping
+    @PostMapping("/insert")
     private ResponseEntity insert(@RequestBody ParticipantRequest participantRequest) {
         participantService.insert(participantRequest);
         return ResponseEntity
                 .ok().build();
     }
 
-    @PutMapping
+    @PutMapping("/update")
     private ResponseEntity upadte(@RequestBody ParticipantRequest participantRequest) {
         participantService.update(participantRequest);
         return ResponseEntity

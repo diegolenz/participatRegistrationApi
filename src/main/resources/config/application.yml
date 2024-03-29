@@ -19,8 +19,8 @@ spring:
 
 #JPA
   jpa:
-    hibernate.ddl-auto: create
-    #hibernate.ddl-auto: validate
+    #hibernate.ddl-auto: create
+    hibernate.ddl-auto: validate
     show-sql: true
     open-in-view: true
 

@@ -15,7 +15,7 @@ import java.util.UUID;
 @Table
 public class Participant {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code")
     private Long code;
     @Column(name = "status")
@@ -46,6 +46,9 @@ public class Participant {
     private Boolean exposedPerson;
     @Column(name = "digitalSignature")
     private Boolean digitalSignature;
+
+    public Participant() {
+    }
 
     public Participant(ParticipantRequest request) {
         //Participant participantEntity = new Participant();
