@@ -7,6 +7,7 @@ import participantManagerApi.domain.dto.ParticipantRequest;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -27,15 +28,15 @@ public class Participant {
     @Column(name = "mail")
     private String mail;
     @Column(name = "phone_number")
-    private Integer phoneNumber;
+    private String phoneNumber;
     @Column(name = "cpf_cnpj")
-    private Integer cpfCnpj;
+    private String cpfCnpj;
     @Column(name = "gender")
     private String gender;
     @Column(name = "marital")
     private String marital;
     @Column(name = "document")
-    private Integer document;
+    private String document;
     @Column(name = "spouse")
     private String spouse;
     @Column(name = "notAplicateCnpjCpf")
@@ -55,16 +56,19 @@ public class Participant {
         code = request.getCode();
         externalCode = request.getExternalCode();
         name = request.getName();
-        mail = (request.getMail());
-        cpfCnpj= (request.getCpfCnpj());
-        notAplicateCnpjCpf =(request.getNotAplicateCnpjCpf());
-        document = (request.getDocument());
-        marital = (request.getMarital());
-        gender = (request.getGender());
-        exposedPerson = (request.getExposedPerson());
-        status = (request.getStatus());
-        tokenSms = (request.getTokenSms());
-        phoneNumber = (request.getPhoneNumber());
+        mail = request.getMail();
+        if (Objects.nonNull(request.getCpfCnpj()))
+            cpfCnpj = request.getCpfCnpj().replaceAll("[^\\d.]", "");
+        notAplicateCnpjCpf = request.getNotAplicateCnpjCpf();
+        if (Objects.nonNull(request.getDocument()))
+            document = request.getDocument().replaceAll("[^\\d.]", "");
+        marital = request.getMarital();
+        gender = request.getGender();
+        exposedPerson = request.getExposedPerson();
+        status = request.getStatus();
+        tokenSms = request.getTokenSms();
+        if (Objects.nonNull(request.getPhoneNumber()))
+            phoneNumber = request.getPhoneNumber().replaceAll("[^\\d.]", "");
     }
 
 }

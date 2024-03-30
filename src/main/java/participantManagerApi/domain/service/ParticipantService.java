@@ -1,12 +1,15 @@
 package participantManagerApi.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import participantManagerApi.domain.dto.ParticipantRequest;
 import participantManagerApi.domain.dto.ParticipantResponse;
 import participantManagerApi.domain.entity.Participant;
 import participantManagerApi.domain.repository.ParticipantRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,12 +27,17 @@ public class ParticipantService {
         participantRepository.save(new Participant(request));
     }
 
+    @Transactional
+    public void deleteByCodeList(List<Long> codesToDelete) {
+        participantRepository.deleteByCodeIn(codesToDelete);
+    }
+
     public Optional<Participant> findByCode(Long code) {
         return participantRepository.findByCode(code);
     }
 
-    public List<ParticipantResponse> find() {
-        return participantRepository.find();
+    public Page<ParticipantResponse> find(String name, Pageable pageable) {
+        return participantRepository.find(name, pageable);
     }
 
 }

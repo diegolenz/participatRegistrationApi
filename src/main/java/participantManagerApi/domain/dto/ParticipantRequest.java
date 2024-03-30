@@ -9,11 +9,11 @@ public class ParticipantRequest {
     private String name;
     private String externalCode;
     private String mail;
-    private Integer phoneNumber;
-    private Integer cpfCnpj;
+    private String phoneNumber;
+    private String cpfCnpj;
     private String gender;
     private String marital;
-    private Integer document;
+    private String document;
     private String spouse;
     private Boolean notAplicateCnpjCpf;
     private Boolean tokenSms;
